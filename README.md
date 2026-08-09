@@ -59,6 +59,19 @@ A native Codex plugin is on the roadmap — see [`.agents/adr/0002-ship-as-a-cla
 </details>
 
 <details>
+<summary><strong>OpenCode</strong></summary>
+
+Install from this fork (or any fork) with the skills.sh CLI, then pick OpenCode as the agent:
+
+```bash
+npx skills@latest add yfrua/skills
+```
+
+Take `grilling` and `grill-me` if you want the interview flow. OpenCode discovers the installed skills from `~/.agents/skills/` (and `~/.config/opencode/skills/`), so any later `git pull` in the fork is picked up automatically when you re-link.
+
+</details>
+
+<details>
 <summary><strong>For tinkerers</strong></summary>
 
 Use the same installer, on any agent — including Claude Code:
