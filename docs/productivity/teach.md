@@ -1,8 +1,8 @@
 ## What it does
 
-`teach` turns the directory you run it in into a standing teaching workspace and teaches you one topic across many [sessions](https://www.aihero.dev/ai-coding-dictionary/session), in short self-contained HTML lessons.
+`teach` turns the directory you run it in into a standing teaching workspace and teaches you one topic across many [sessions](https://www.aihero.dev/ai-coding-dictionary/session), in short self-contained Markdown lessons.
 
-It does not teach from what the [model](https://www.aihero.dev/ai-coding-dictionary/model) already knows. [Parametric knowledge](https://www.aihero.dev/ai-coding-dictionary/parametric-knowledge) is treated as untrusted: before it teaches, it goes and finds high-trust resources, records them in `RESOURCES.md`, and cites them inside every lesson. The other structural fact is that it is [stateful](https://www.aihero.dev/ai-coding-dictionary/stateful): the mission, the resources, the lessons and the record of what you have learned all live in the directory as files, so the next session picks up from those files rather than from whatever is left of the last conversation.
+It does not teach from what the [model](https://www.aihero.dev/ai-coding-dictionary/model) already knows. [Parametric knowledge](https://www.aihero.dev/ai-coding-dictionary/parametric-knowledge) is treated as untrusted: before it teaches, it goes and finds high-trust resources, records them in `RESOURCES.md`, and cites them inside every lesson. The other structural fact is that it is [stateful](https://www.aihero.dev/ai-coding-dictionary/stateful): the mission, the resources, the lessons and the record of what you have learned all live under a single `lessons/` directory as files, so the next session picks up from those files rather than from whatever is left of the last conversation.
 
 ## When to reach for it
 
@@ -23,17 +23,17 @@ Reach for it when the learning is the project: a language, a framework, a codeba
 
 `teach` builds a directory rather than producing a file, and the skill assumes one mission per workspace, so run it somewhere you are happy to give over to a single topic. Keep it out of the project you are working in: a separate repo is the recommended home, rather than a global `~/.learnings/` folder or the working project itself. A dedicated repo also makes the lessons committable, which is how teams have shared them.
 
-What accumulates in that directory:
+What accumulates, all gathered under one `lessons/` directory so the folder you point it at keeps its own contents:
 
 | Path | What it holds |
 | --- | --- |
-| `MISSION.md` | Why you are learning this. Everything else hangs off it; if it is missing, the first thing `teach` does is interview you until it isn't |
-| `RESOURCES.md` | The vetted sources it teaches from, split into Knowledge and Wisdom (communities) |
-| `lessons/*.html` | The numbered lessons: the primary unit of teaching |
-| `reference/*.html` | Compressed cheat-sheets, algorithms, glossaries: the documents you actually return to |
-| `learning-records/*.md` | ADR-style notes on what you have demonstrably learned, used to decide what to teach next |
-| `assets/*` | Reusable components, starting with a shared stylesheet, so the lessons look like one course |
-| `NOTES.md` | Your stated teaching preferences |
+| `lessons/MISSION.md` | Why you are learning this. Everything else hangs off it; if it is missing, the first thing `teach` does is interview you until it isn't |
+| `lessons/RESOURCES.md` | The vetted sources it teaches from, split into Knowledge and Wisdom (communities) |
+| `lessons/NNNN-name.md` | The numbered lessons: the primary unit of teaching |
+| `lessons/reference/*.html` | Compressed cheat-sheets, algorithms, glossaries: the printable documents you actually return to |
+| `lessons/learning-records/*.md` | ADR-style notes on what you have demonstrably learned, used to decide what to teach next |
+| `lessons/assets/*` | Reusable components, starting with a shared stylesheet for the reference documents |
+| `lessons/NOTES.md` | Your stated teaching preferences |
 
 Two honest notes on that list. A glossary suits most topics, but the skill ships a `GLOSSARY-FORMAT.md` that `SKILL.md` no longer links to, so you will only get one if you ask ([issue #559](https://github.com/mattpocock/skills/issues/559)). And the workspace is not always created where you expect, so see the first question below before you build a long course on top of it.
 
@@ -47,16 +47,16 @@ It is also why the skill pushes back rather than obliges. A question that needs 
 
 ## Lessons, references and components
 
-A **lesson** is one self-contained HTML file, short enough to finish in a sitting, tied to the mission, giving one tangible win. It cites its sources, recommends one primary source to go and read yourself, and links to sibling lessons and reference documents.
+A **lesson** is one self-contained Markdown file, short enough to finish in a sitting, tied to the mission, giving one tangible win. It cites its sources, recommends one primary source to go and read yourself, and links to sibling lessons and reference documents. Markdown keeps the lessons readable in any editor or preview, and diffable and committable like code.
 
 The split worth knowing: lessons are rarely revisited, reference documents are. So the compressed essence of a lesson (the syntax table, the algorithm, the pose sequence, the glossary) belongs in `reference/`, not buried in the lesson that introduced it.
 
-Lessons are built from **components** in `assets/`: stylesheets, quiz widgets, simulators, diagram helpers. Reuse is the default. The agent reads `assets/` before authoring a lesson and builds from what is there, and anything new that a second lesson could use is written as a component rather than inlined. The shared stylesheet is the first component every workspace earns; it is what stops the output being a pile of one-offs.
+Reference documents draw on **components** in `lessons/assets/`: stylesheets, templates, diagram helpers. Reuse is the default. The agent reads `assets/` before authoring and builds from what is there, and anything new that a second document could use is written as a component rather than inlined. The shared stylesheet is the first component every workspace earns; it is what stops the reference set being a pile of one-offs.
 
 ## Common questions
 
 **Where does it put the files? Mine ended up in `~/.claude/skills`.**
-A real, open bug ([#377](https://github.com/mattpocock/skills/issues/377)). `SKILL.md` uses `./` for two different roots at once: `./MISSION-FORMAT.md` and its siblings really do sit next to `SKILL.md` in the installed skill, while `./lessons/`, `./reference/`, `./learning-records/` and `./assets/` are meant to be in your directory. An agent that resolves the first kind against the skill's install directory goes on to resolve the second kind there too, and writes your course into the skill folder. Check where the first lesson landed before you build on it, and name the directory explicitly when you start rather than relying on "the current directory" being understood.
+A real, open bug ([#377](https://github.com/mattpocock/skills/issues/377)). `SKILL.md` uses `./` for two different roots at once: `./MISSION-FORMAT.md` and its siblings really do sit next to `SKILL.md` in the installed skill, while `./lessons/` and everything inside it (the lessons, `reference/`, `learning-records/`, `assets/`) is meant to be in your directory. An agent that resolves the first kind against the skill's install directory goes on to resolve the second kind there too, and writes your course into the skill folder. Check where the first lesson landed before you build on it, and name the directory explicitly when you start rather than relying on "the current directory" being understood. When it lands right, everything sits under one `lessons/` folder, which makes a wrong place easy to spot.
 
 **Do I stay in one session, or start a new one per lesson?**
 All three approaches work: staying in the same session, re-invoking `/teach` in a new session, or opening a new session in the same folder. Each lesson is its own invocation. The folder is the continuity, not the conversation. Common practice is to open a fresh session in the workspace and say `/teach next lesson for <topic>`.
@@ -65,7 +65,7 @@ All three approaches work: staying in the same session, re-invoking `/teach` in 
 You don't, on the skill's word alone. You read the primary sources. `teach` is not reliable enough to trust unchecked, and no skill built on an LLM is. The grounding machinery (`RESOURCES.md`, citations in every lesson, one recommended primary source per lesson) exists to make verification cheap, not to remove the need for it. The failure is not hypothetical: one user learning a 2x2 Rubik's cube was given fabricated move sequences that don't solve it. The diagnostic checklist for a case like that is model, harness, effort, and what the source was. Risk is highest in procedural domains with precise notation, and lowest where the output is immediately verifiable, like code you can run.
 
 **The correct quiz answer is always the first option.**
-Confirmed by several people, on Sonnet, on Opus and on GLM, and still unfixed. `SKILL.md` now requires every answer to be the same number of words, which kills a different tell (the correct answer used to be the only fully-reasoned one), but says nothing about position. One contributor tested an instruction-level fix for position and reported the correct answer still landing in slot A 33 times out of 33 across nine lessons ([#335](https://github.com/mattpocock/skills/issues/335)), which points at a shuffling quiz component in `assets/` as the real fix rather than better wording. Until that ships, treat answer position as meaningless. Your `assets/` directory is yours to change, so asking for a component that shuffles at render time is a legitimate local fix.
+Confirmed by several people, on Sonnet, on Opus and on GLM, and still unfixed. `SKILL.md` now requires every answer to be the same number of words, which kills a different tell (the correct answer used to be the only fully-reasoned one), but says nothing about position. One contributor tested an instruction-level fix for position and reported the correct answer still landing in slot A 33 times out of 33 across nine lessons ([#335](https://github.com/mattpocock/skills/issues/335)), which points at shuffling the options when the lesson is written as the real fix rather than better wording. Until that ships, treat answer position as meaningless. The lessons are yours to change, so asking for the options to be shuffled before they are written into the file is a legitimate local fix.
 
 **It assumed I already knew things, and used terms it never defined.**
 The commonest substantive complaint. There is no assessment step: `teach` infers your level from the mission and the learning records, and in session one there are no learning records. One user running it inside a wayfinder pipeline put it plainly: "It never did grilling to establish my starting point so it made lots of assumptions of what I already knew." Another reported lessons leaning on undefined jargon, and a lesson tailored to their hardware that covered what the hardware could do while never saying what it couldn't. Two things help: state your prior knowledge and your gaps in the first message, and correct the level out loud when a lesson misses, because the correction becomes a learning record and steers the next one. An explicit knowledge-assessment step is a standing feature request ([#725](https://github.com/mattpocock/skills/issues/725)), not shipped behaviour.
@@ -87,7 +87,8 @@ There is no canonical answer, and the reported differences are large. Higher [re
 - A lesson takes one sitting and leaves you able to do one thing you couldn't before.
 - Opening a fresh session in the folder and saying "next lesson" continues the course instead of restarting it.
 - `learning-records/` grows, and lessons stop re-teaching what you have already demonstrated.
-- The lessons look like one course: they link the stylesheet in `assets/` rather than each carrying its own.
+- Everything the skill generated sits under one `lessons/` directory, not strewn across the workspace.
+- The reference documents look like one set: they share the stylesheet in `lessons/assets/` rather than each carrying its own.
 - A question that needs judgement gets you pointed at a forum, subreddit or class, not just an answer.
 
 ## Where it fits
