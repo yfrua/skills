@@ -18,18 +18,20 @@ lessons/
 ├── NOTES.md                                      # Scratchpad & lesson planning
 ├── 0001-<dash-case-name>.md                      # Lesson 0001
 ├── 0002-<dash-case-name>.md                      # Lesson 0002
-├── assets/                                       # Shared components (stylesheets, templates)
+├── assets/                                       # Shared components (templates, diagram helpers)
 ├── reference/                                    # Cheat sheets, algorithms, glossaries
 └── learning-records/                             # Records of what the user has learned
 ```
 
 - `./lessons/MISSION.md`: A document capturing the _reason_ the user is interested in the topic. This should be used to ground all teaching. Use the format in [MISSION-FORMAT.md](./MISSION-FORMAT.md).
-- `./lessons/reference/*.html`: A directory of reference materials. These are the compressed learnings from the lessons - cheat sheets, reference algorithms, syntax, yoga poses, glossaries. They are the raw units of learning. They should be beautiful documents which print out well, and are designed for quick reference.
+- `./lessons/reference/*.md`: A directory of reference materials. These are the compressed learnings from the lessons - cheat sheets, reference algorithms, syntax, yoga poses, glossaries. They are the raw units of learning. They should be beautiful Obsidian Markdown documents, designed for quick reference: dense tables, callouts, mermaid diagrams, and foldable sections for anything the user should recall before revealing.
 - `./lessons/RESOURCES.md`: A list of resources which can be explored to ground your teaching in contextual knowledge, or to acquire knowledge and wisdom. Use the format in [RESOURCES-FORMAT.md](./RESOURCES-FORMAT.md).
 - `./lessons/learning-records/*.md`: A directory of learning records, which capture what the user has learned. These are loosely equivalent to architectural decision records in software development - they capture non-obvious lessons and key insights that may need to be revised later, or drive future sessions. These should be used to calculate the zone of proximal development. They are titled `0001-<dash-case-name>.md`, where the number increments each time. Use the format in [LEARNING-RECORD-FORMAT.md](./LEARNING-RECORD-FORMAT.md).
 - `./lessons/0001-<dash-case-name>.md`: The lessons themselves, sitting directly inside `./lessons/`. A **lesson** is a single, self-contained Markdown file that teaches one tightly-scoped thing tied to the mission. This is the primary unit of teaching in this workspace.
 - `./lessons/assets/*`: Reusable **components** shared across lessons and reference documents. See [Assets](#assets).
 - `./lessons/NOTES.md`: A scratchpad for you to jot down user preferences, or working notes.
+
+The `lessons/` directory doubles as an [Obsidian](https://obsidian.md) vault: author every Markdown file in it as Obsidian-flavored Markdown and use Obsidian's native features for display. See [Obsidian formatting](#obsidian-formatting).
 
 ## Philosophy
 
@@ -66,19 +68,41 @@ The lesson should be short, and completable very quickly. Learners' working memo
 
 If possible, open the lesson file for the user by running a CLI command.
 
-Each lesson should link to other lessons and reference documents using relative markdown links.
+Each lesson should link to other lessons and workspace documents using Obsidian wikilinks (`[[0002-next-lesson]]`), and to external sources with standard markdown links so citations stay clickable everywhere.
 
 Each lesson should recommend a primary source for the user to read or watch. This should be the most high-quality, high-trust resource you found on the topic.
 
 Each lesson should contain a reminder to ask followup questions to the agent. The agent is their teacher, and can assist with anything that's unclear.
 
+### Obsidian formatting
+
+The user reads lessons in Obsidian, so lean on its native features instead of raw HTML or walls of prose:
+
+- **Callouts** carry asides at a glance: `> [!info]`, `> [!tip]`, `> [!warning]`. Use `> [!quote]` for cited passages from resources.
+- **Foldable callouts** hide content behind a header: append `-` to the callout type (`> [!question]-`) and it renders collapsed. Use them for quiz answers, worked examples, and optional depth, so the user must attempt recall before revealing. The fold is the point: effortful retrieval builds storage strength.
+- **Mermaid blocks** (```mermaid```) for flows, trees, and diagrams, instead of ASCII art.
+- **Highlights** (`==like this==`) for the key takeaway, at most one or two per lesson.
+- **Frontmatter properties** for lesson metadata (`topic`, `status`, `prerequisites`), which Obsidian surfaces as document properties.
+
+A quiz question with its answer hidden in a foldable callout:
+
+```md
+> [!question] What does RPE 8 mean?
+> Answer from memory first, then unfold to check.
+>
+> > [!success]- Answer
+> > Two reps left in the tank.
+```
+
+Outside Obsidian these degrade gracefully: callouts render as blockquotes, mermaid as code, wikilinks as text. Never let the degradation stop you from using the native feature, but keep any meaning that lives _only_ in a fold (like a quiz answer) out of the fold header itself.
+
 ## Assets
 
-Lessons and reference documents are built from reusable **components**, stored in `./lessons/assets/`: stylesheets, document templates, diagram helpers, and anything else a second lesson or reference document could reuse.
+Lessons and reference documents are built from reusable **components**, stored in `./lessons/assets/`: document templates, callout conventions, diagram helpers, and anything else a second lesson or reference document could reuse.
 
 Reuse is the default, not the exception. Before authoring a lesson, read `./lessons/assets/` and build from the components already there. When a lesson needs something new and reusable, write it as a component in `./lessons/assets/` and link to it; never inline code a future lesson would duplicate.
 
-A shared stylesheet is the first component every workspace earns: every reference document links it, so the reference set looks like one consistent course rather than a pile of one-offs. As the workspace grows, so should the component library.
+A shared lesson template is the first component every workspace earns: every lesson and reference document is built from it, so the set looks like one consistent course rather than a pile of one-offs. As the workspace grows, so should the component library.
 
 ## The Mission
 
@@ -114,7 +138,7 @@ If knowledge is all about acquisition, skills are about durability and flexibili
 
 For skill acquisition, difficulty is the tool. Effortful retrieval is what builds storage strength. Skills should be taught through interactive lessons. There are several tools at your disposal:
 
-- Quizzes written into the lesson, with answers hidden in `<details>` blocks so the user must attempt recall before revealing, or answered live in the conversation where you grade them
+- Quizzes written into the lesson, with answers hidden in foldable callouts (`> [!success]-`, collapsed by default) so the user must attempt recall before revealing, or answered live in the conversation where you grade them
 - Lessons which guide the user through a list of real-world steps to take (for instance, yoga poses)
 
 Each of these should be based on a **feedback loop**, where the user receives feedback on their performance. This feedback loop should be as tight as possible, giving feedback immediately: when the user answers a quiz in the conversation, grade it there and then.
@@ -135,7 +159,7 @@ You should attempt to find high-reputation communities the user can join. If the
 
 While creating lessons, you should also create reference documents. Lessons can reference these documents - they are useful for tracking raw units of knowledge useful across lessons.
 
-Lessons will rarely be revisited later - reference documents will be. They should be the compressed essence of the lesson, in a format designed for quick reference.
+Lessons will rarely be revisited later - reference documents will be. They should be the compressed essence of the lesson, in a format designed for quick reference. Like lessons, they are Obsidian-flavored Markdown: see [Obsidian formatting](#obsidian-formatting).
 
 Some learning topics lend themselves to reference:
 

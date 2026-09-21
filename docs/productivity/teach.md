@@ -23,16 +23,16 @@ Reach for it when the learning is the project: a language, a framework, a codeba
 
 `teach` builds a directory rather than producing a file, and the skill assumes one mission per workspace, so run it somewhere you are happy to give over to a single topic. Keep it out of the project you are working in: a separate repo is the recommended home, rather than a global `~/.learnings/` folder or the working project itself. A dedicated repo also makes the lessons committable, which is how teams have shared them.
 
-What accumulates, all gathered under one `lessons/` directory so the folder you point it at keeps its own contents:
+What accumulates, all gathered under one `lessons/` directory so the folder you point it at keeps its own contents, and doubling as an Obsidian vault you can open the whole course in:
 
 | Path | What it holds |
 | --- | --- |
 | `lessons/MISSION.md` | Why you are learning this. Everything else hangs off it; if it is missing, the first thing `teach` does is interview you until it isn't |
 | `lessons/RESOURCES.md` | The vetted sources it teaches from, split into Knowledge and Wisdom (communities) |
 | `lessons/NNNN-name.md` | The numbered lessons: the primary unit of teaching |
-| `lessons/reference/*.html` | Compressed cheat-sheets, algorithms, glossaries: the printable documents you actually return to |
+| `lessons/reference/*.md` | Compressed cheat-sheets, algorithms, glossaries: the quick-reference documents you actually return to |
 | `lessons/learning-records/*.md` | ADR-style notes on what you have demonstrably learned, used to decide what to teach next |
-| `lessons/assets/*` | Reusable components, starting with a shared stylesheet for the reference documents |
+| `lessons/assets/*` | Reusable components, starting with a shared lesson template |
 | `lessons/NOTES.md` | Your stated teaching preferences |
 
 Two honest notes on that list. A glossary suits most topics, but the skill ships a `GLOSSARY-FORMAT.md` that `SKILL.md` no longer links to, so you will only get one if you ask ([issue #559](https://github.com/mattpocock/skills/issues/559)). And the workspace is not always created where you expect, so see the first question below before you build a long course on top of it.
@@ -47,11 +47,11 @@ It is also why the skill pushes back rather than obliges. A question that needs 
 
 ## Lessons, references and components
 
-A **lesson** is one self-contained Markdown file, short enough to finish in a sitting, tied to the mission, giving one tangible win. It cites its sources, recommends one primary source to go and read yourself, and links to sibling lessons and reference documents. Markdown keeps the lessons readable in any editor or preview, and diffable and committable like code.
+A **lesson** is one self-contained Markdown file, short enough to finish in a sitting, tied to the mission, giving one tangible win. It cites its sources, recommends one primary source to go and read yourself, and links to sibling lessons and reference documents with wikilinks. Lessons are written for Obsidian: foldable callouts hide quiz answers so recall takes a deliberate unfold, mermaid blocks carry the diagrams, and frontmatter properties carry the metadata. Outside Obsidian these degrade to blockquotes and code, so a lesson stays readable in any editor, and diffable and committable like code.
 
-The split worth knowing: lessons are rarely revisited, reference documents are. So the compressed essence of a lesson (the syntax table, the algorithm, the pose sequence, the glossary) belongs in `reference/`, not buried in the lesson that introduced it.
+The split worth knowing: lessons are rarely revisited, reference documents are. So the compressed essence of a lesson (the syntax table, the algorithm, the pose sequence, the glossary) belongs in `reference/`, not buried in the lesson that introduced it. References are Obsidian Markdown too: dense tables, callouts, mermaid diagrams, and folds for anything worth recalling before revealing.
 
-Reference documents draw on **components** in `lessons/assets/`: stylesheets, templates, diagram helpers. Reuse is the default. The agent reads `assets/` before authoring and builds from what is there, and anything new that a second document could use is written as a component rather than inlined. The shared stylesheet is the first component every workspace earns; it is what stops the reference set being a pile of one-offs.
+Reference documents draw on **components** in `lessons/assets/`: templates, callout conventions, diagram helpers. Reuse is the default. The agent reads `assets/` before authoring and builds from what is there, and anything new that a second document could use is written as a component rather than inlined. The shared lesson template is the first component every workspace earns; it is what stops the set being a pile of one-offs.
 
 ## Common questions
 
@@ -85,10 +85,11 @@ There is no canonical answer, and the reported differences are large. Higher [re
 - `RESOURCES.md` fills up before the lessons do, and each lesson names one primary source worth reading yourself.
 - Claims in a lesson carry links out. A lesson with no citations is the skill teaching from memory.
 - A lesson takes one sitting and leaves you able to do one thing you couldn't before.
+- In Obsidian, quiz answers sit inside foldable callouts, collapsed until you attempt the recall yourself.
 - Opening a fresh session in the folder and saying "next lesson" continues the course instead of restarting it.
 - `learning-records/` grows, and lessons stop re-teaching what you have already demonstrated.
 - Everything the skill generated sits under one `lessons/` directory, not strewn across the workspace.
-- The reference documents look like one set: they share the stylesheet in `lessons/assets/` rather than each carrying its own.
+- The reference documents look like one set: they are built from the shared template in `lessons/assets/` rather than each carrying its own structure.
 - A question that needs judgement gets you pointed at a forum, subreddit or class, not just an answer.
 
 ## Where it fits
