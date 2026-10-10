@@ -9,7 +9,7 @@ The user has asked you to teach them something. This is a stateful request - the
 
 ## Teaching Workspace
 
-Treat the current directory as the home of the teaching workspace, and gather everything you generate under a single `lessons/` directory inside it. Never scatter workspace files loose in the surrounding folder. The layout:
+Treat the current directory as the home of the teaching workspace, and gather everything you generate under a single `lessons/` directory inside it. Workspace paths (`./lessons/` and everything inside it) resolve from the directory `/teach` was run in; only the `*-FORMAT.md` links resolve from this skill's folder. Never scatter workspace files loose in the surrounding folder. The layout:
 
 ```
 lessons/
@@ -143,7 +143,7 @@ For skill acquisition, difficulty is the tool. Effortful retrieval is what build
 
 Each of these should be based on a **feedback loop**, where the user receives feedback on their performance. This feedback loop should be as tight as possible, giving feedback immediately: when the user answers a quiz in the conversation, grade it there and then.
 
-For quizzes, each answer should be exactly the same number of words (and characters, if possible). Don't give the user any clues about the answer through formatting.
+For quizzes, each answer should be exactly the same number of words (and characters, if possible). Vary which position holds the correct answer across questions. Don't give the user any clues about the answer through formatting or order.
 
 ## Acquiring Wisdom
 
