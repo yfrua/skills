@@ -18,3 +18,4 @@ Model- or user-reachable (rich trigger phrasing so the model can reach for them)
 
 - **[grilling](./grilling/SKILL.md)**: Interview the user relentlessly about a plan, decision, or idea until every branch of the design tree is resolved.
 - **[writing-for-agents](./writing-for-agents/SKILL.md)**: Writing documents for agents: skills, AGENTS.md/CLAUDE.md, and any doc an agent reaches by a pointer.
+- **[zoom-out](./zoom-out/SKILL.md)**: Step out of the local view to the level where the problem really sits: check whether the question is framed right and which planned actions can be dropped, then answer in the same reply. Reaches for it when you keep re-editing the same thing and staying unhappy.

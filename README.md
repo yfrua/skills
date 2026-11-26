@@ -257,3 +257,4 @@ General workflow tools, not code-specific.
 
 - **[grilling](./skills/productivity/grilling/SKILL.md)**: Interview the user relentlessly about a plan, decision, or idea until every branch of the design tree is resolved. The reusable interview primitive behind `grill-me`, `grill-with-docs`, `triage`, `wayfinder` and `improve-codebase-architecture`.
 - **[writing-for-agents](./skills/productivity/writing-for-agents/SKILL.md)**: Writing documents for agents: skills, AGENTS.md/CLAUDE.md, and any doc an agent reaches by a pointer.
+- **[zoom-out](./skills/productivity/zoom-out/SKILL.md)**: Step out of the local view to the level where the problem really sits: check whether the question is framed right and which planned actions can be dropped, then answer in the same reply. Reaches for it when you keep re-editing the same thing and staying unhappy.

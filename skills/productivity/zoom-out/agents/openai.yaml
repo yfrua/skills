@@ -1,0 +1,3 @@
+interface:
+  display_name: "Zoom Out"
+  short_description: "Step out of the local view to find the level the problem really sits at"
