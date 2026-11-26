@@ -26,3 +26,13 @@ jobs:
 
       - name: Check frontmatter
         run: npm run check-frontmatter
+
+      # Vendored skills pin the upstream commit they came from in
+      # `upstream.json`. This is a heads-up, not a gate: upstream drifting does
+      # not mean the local copy is broken, and updating it is a hand edit. It
+      # needs the network, so a GitHub outage must not fail the build either.
+      - name: Check vendored skills against upstream
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run check-upstream

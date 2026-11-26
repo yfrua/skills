@@ -1,0 +1,18 @@
+{
+  "repo": "QianWenFlow/qwskill",
+  "path": "skills/qws-zoom-out",
+  "commit": "1f2acffd3b884c6f3e25ce01b3c0879e4adf0d83",
+  "commitDate": "2026-11-15T14:09:41Z",
+  "syncedAt": "2026-11-26",
+  "license": "CC BY-NC 4.0",
+  "localPath": "skills/productivity/zoom-out",
+  "files": {
+    "SKILL.md": "43af3d9526f134ac94635f87f8a0d2d486d6dfa7",
+    "agents/openai.yaml": "4254daea1c1c41ef22652656639455ad602d4983",
+    "references/landing-ai.md": "3c16886f6bb26c5fe847120f9dec964aa9ef145f",
+    "references/landing-content.md": "0b2397416a40f5d46b101b86d72c87a7605a74e2",
+    "references/landing-text.md": "9e6642dc27598592ff65dddde12895bb05238243",
+    "references/method-sources.md": "6ebf9135d307bd2d7160dc0dfbb99eff1114e913",
+    "references/system-scope-model.md": "b4c3ba4284530696d5ae6bf6a3bf48c0b72ed2c0"
+  }
+}

@@ -91,6 +91,7 @@ Off the main flow entirely.
 - **`/wait-what`** is the corrective for a message that didn't land. Use it mid-conversation, inside any other skill, and the agent re-pitches what it just said with the context you were missing, in plain English, using the `GLOSSARY.md` vocabulary. It works after the fact; `/grill-with-docs` is the upfront cure, because a shared language agreed early is what stops the jargon arriving at all.
 - **`/teach`**: learn a concept over multiple sessions, using the current directory as a stateful workspace.
 - **`/writing-for-agents`** is the reference for writing documents agents consume: skills, AGENTS.md, pointed-at docs.
+- **`/zoom-out`** is for when the local edits stop helping. It checks whether the question itself is framed right, names which of your planned actions can be dropped, and answers in the same reply. Reach for it when two options look equally reasonable, when you keep re-editing the same thing and staying unhappy, or when different agents give you conflicting directions. It is not a substitute for `/grilling`: grilling fills in the decisions inside a frame you have settled, `zoom-out` tests whether that frame is the right one.
 
 ## Precondition
 
